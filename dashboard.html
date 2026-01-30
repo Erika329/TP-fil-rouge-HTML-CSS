@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Tableau de bord - Ticketing</title>
+		<link rel="stylesheet" href="dashboard.css">
+	</head>
+	<body>
+		<header>
+			<h1>Tableau de bord</h1>
+			<nav aria-label="Navigation principale">
+				<ul>
+					<li><a href="index.html">Connexion</a></li>
+					<li><a href="dashboard.html">Tableau de bord</a></li>
+					<li><a href="projects.html">Projets</a></li>
+					<li><a href="tickets.html">Tickets</a></li>
+					<li><a href="ticket create.html">Créer un ticket</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
+			<section aria-labelledby="resume">
+				<h2 id="resume">Résumé</h2>
+				<ul>
+					<li>Tickets ouverts</li>
+					<li>En cours</li>
+					<li>À valider</li>
+					<li>Heures restantes</li>
+				</ul>
+			</section>
+
+			<section aria-labelledby="tickets-recents">
+				<h2 id="tickets-recents">Tickets récents</h2>
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">Titre</th>
+							<th scope="col">Projet</th>
+							<th scope="col">Statut</th>
+							<th scope="col">Priorité</th>
+							<th scope="col">Dernière mise à jour</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</section>
+
+			<section aria-labelledby="projets">
+				<h2 id="projets">Projets</h2>
+				<ul></ul>
+				<p><a href="projects.html">Voir tous les projets</a></p>
+			</section>
+		</main>
+
+		<footer>
+			<p>© Erika - ESIEA 2026 - Application de gestion de ticketing</p>
+		</footer>
+	</body>
+</html>
