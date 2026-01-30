@@ -1,33 +1,121 @@
 /*Erika KAMDOM FOTSO 3A FISE
 Mise en page CSS
 TP Fil rouge*/
-/*Page de connexion*/
+
+/*PAGE DE CONNEXION*/
+
+
 body {
-    height: 100vh;
-    margin: 0;
-    /*Utilisation de cssgradiant.io pour les dégradés de couleur*/
-     background: radial-gradient(circle,rgba(63, 94, 251, 1) 71%, rgba(252, 70, 107, 1) 100%);
-    /*Activation de flexbox pour positionner les éléments plus facilement*/
-     display: flex; 
-     justify-content: center;
-     align-items: center;
-}
-.connexion{
-    color: white;
-    font-weight: bold; /*texte en gras*/
+    height: 100vh; 
+    margin: 0; 
+    /*couleur issus du site cssgradiant.io*/
+    background: linear-gradient(90deg,rgba(2, 0, 36, 1) 44%, rgba(9, 9, 121, 1) 100%, rgba(0, 212, 255, 1) 100%);
+    display: flex; /* Flexbox pour centrer */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    font-family: 'Arial Narrow', sans-serif; 
+    color: black; /* Texte noir par défaut */
 }
 
-.identifiant{
-    color: white;
+
+form {
+    background: white;
+    width: 400px; /* Largeur du formulaire */
+    padding: 40px; /* Espacement intérieur */
+    border-radius: 20px; /* Coins arrondis */
+    border: 1px solid rgba(0, 212, 255, 1);
+    display: flex;
+    flex-direction: column;
 }
 
-.mot_de_passe{
-    color: white;
+
+.connexion {
+    color: black; /* Texte blanc */
+    text-align: center; 
+    align-self: center; /* Centre avec Flexbox */
+    margin-bottom: 30px; /* Espace en dessous */
+    padding: 8px 16px; /* Espace intérieur du rectangle */
+    border: 2px solid #0a1f6f; /* Bord bleu foncé */
+    border-radius: 12px; 
+    font-size: 2rem; /* Grande taille */
+    font-weight: bold; 
+    letter-spacing: 3px; /* Espacement des lettres */
+    text-transform: uppercase; /* Majuscules */
+}
+
+
+.identifiant label,
+.mot_de_passe label {
+    display: block; /* Affichage en bloc */
+    color: black; /* Texte noir */
+    font-size: 13px; /* Petite taille */
+    margin-bottom: 8px; /* Espace avant l'input */
+    margin-left: 5px; /* Léger décalage */
+}
+
+/* --- CHAMPS INPUT --- */
+.identifiant input,
+.mot_de_passe input {
+    width: 100%; /* Largeur totale */
+    padding: 12px 15px; /* Espacement intérieur */
+    margin-bottom: 20px; /* Espace en dessous */
+    background: white; /* Fond blanc visible */
+    border: 1px solid black; /* Bordure noire */
+    border-radius: 10px; /* Coins arrondis */
+    color: black; /* Texte noir */
+    font-size: 15px; /* Taille du texte */
+    outline: none; /* Pas de contour par défaut */
+    box-sizing: border-box; /* Inclut padding dans la largeur */
+}
+
+/* Placeholder */
+.identifiant input::placeholder,
+.mot_de_passe input::placeholder {
+    color: rgba(0, 0, 0, 0.4); /* Gris foncé */
+}
+
+/* Focus sur les inputs */
+.identifiant input:focus,
+.mot_de_passe input:focus {
+    border-color: black; /* Bordure noire visible */
+    background: white; /* Fond blanc */
+    box-shadow: none; /* Pas de lueur */
+}
+
+
+.Mot_de_passe_oublié {
+    text-align: center; /* Centre le texte */
+    margin: 15px 0; /* Marges haut et bas */
 }
 
 .Mot_de_passe_oublié a {
-    color: white;
-    font-style: italic; /*texte en italique*/
+    color: grey;
+    text-decoration: none; /* Pas de soulignement */
+    font-size: 13px; /* Petite taille */
+    font-style: italic; /* Texte italique */
 }
 
-/**********/
+.Mot_de_passe_oublié a:hover {
+    color: black; /* Noir au survol */
+}
+
+
+.login {
+    display: flex;
+    justify-content: center; /* Centre le bouton */
+}
+
+.login input[type="submit"] {
+    margin-top: 20px; /* Espace au-dessus */
+    padding: 15px 30px; /* Espacement intérieur */
+    background: grey; /* Fond gris */
+    color: black; /* Texte noir */
+    border: 1px solid transparent; /* Bordure transparente */
+    border-radius: 30px; /* Forme de pilule */
+    font-size: 15px; /* Taille du texte */
+    font-weight: bold; /* Texte en gras */
+    letter-spacing: 2px; /* Espacement des lettres */
+    text-transform: uppercase; /* Majuscules */
+    cursor: pointer; /* Curseur pointeur */
+    box-shadow: none; /* Pas d'ombre */
+ }
