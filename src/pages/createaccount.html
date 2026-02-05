@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--Erika KAMDOM FOTSO 3A FISE-->
+<!--TP Fil Rouge / Application de gestion de Ticket-->
+<!--Page d'inscription-->
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Inscription - Ticketing</title>
+		<link rel="stylesheet" href="assets/style.css">
+	</head>
+	<body class="body-connexion">
+		<div class="login-box">
+			<img src="images/icon.png" alt="Icône utilisateur">
+			<h2>Créer un compte</h2>
+			<form>
+				<label for="prenom">Prénom</label><br>
+				<input id="prenom" name="prenom" type="text" placeholder="Prénom">
+				<label for="nom">Nom</label><br>
+				<input id="nom" name="nom" type="text" placeholder="Nom">
+				<label for="email">Email</label><br>
+				<input id="email" name="email" type="email" placeholder="email@exemple.com">
+				<label for="role">Rôle</label><br>
+				<select id="role" name="role">
+					<option value="collaborateur">Collaborateur</option>
+					<option value="client">Client</option>
+				</select>
+				<label for="mot_de_passe">Mot de passe</label><br>
+				<input id="mot_de_passe" name="mot_de_passe" type="password" placeholder="Mot de passe">
+				<button type="submit">S'inscrire</button>
+			</form>
+			<br>
+			<a href="index.html" class="forgot-link">Déjà un compte ? Se connecter</a>
+		</div>
+	</body>
+</html>

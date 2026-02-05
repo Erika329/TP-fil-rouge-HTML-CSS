@@ -1,29 +1,37 @@
 <!DOCTYPE html>
+<!--Erika KAMDOM FOTSO 3A FISE-->
+<!--TP Fil Rouge / Application de gestion de Ticket-->
+<!--Page tableau de bord-->
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Tableau de bord - Ticketing</title>
-		<link rel="stylesheet" href="dashboard.css">
+		<link rel="stylesheet" href="assets/style.css">
 	</head>
-	<body>
+	<body class="body-dash">
 		<header>
-			<h1>Tableau de bord</h1>
-			<nav aria-label="Navigation principale">
-				<ul>
-					<li><a href="index.html">Connexion</a></li>
-					<li><a href="dashboard.html">Tableau de bord</a></li>
-					<li><a href="projects.html">Projets</a></li>
-					<li><a href="tickets.html">Tickets</a></li>
-					<li><a href="ticket create.html">Créer un ticket</a></li>
-				</ul>
-			</nav>
+			<div class="tableau_de_bord">
+				<h1>Tableau de bord</h1>
+				<nav class="Navigation_principale">
+					<ul>
+						<li><a href="dashboard.html">Tableau de bord</a></li>
+						<li><a href="projects.html">Projets</a></li>
+						<li><a href="tickets.html">Tickets</a></li>
+						<li><a href="ticket create.html">Créer un ticket</a></li>
+						<li><a href="clients.html">Clients</a></li>
+						<li><a href="profile.html">Profil</a></li>
+						<li><a href="settings.html">Paramètres</a></li>
+					</ul>
+				</nav>
+				<button id="logout" class="logout-btn"><a href="index.html">Déconnexion</a></button>
+			</div>
 		</header>
 
 		<main>
 			<section aria-labelledby="resume">
 				<h2 id="resume">Résumé</h2>
-				<ul>
+				<ul class="resume">
 					<li>Tickets ouverts</li>
 					<li>En cours</li>
 					<li>À valider</li>
@@ -54,7 +62,7 @@
 			</section>
 		</main>
 
-		<footer>
+		<footer class="footer">
 			<p>© Erika - ESIEA 2026 - Application de gestion de ticketing</p>
 		</footer>
 	</body>
