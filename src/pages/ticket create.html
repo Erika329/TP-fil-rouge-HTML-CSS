@@ -7,7 +7,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Créer un ticket - Ticketing</title>
-		<link rel="stylesheet" href="assets/style.css">
+		<link rel="stylesheet" href="../assets/css/style.css">
 	</head>
 	<body class="body-dash">
 		<header>
@@ -31,7 +31,7 @@
 		<main>
 			<section aria-labelledby="formulaire-ticket">
 				<h2 id="formulaire-ticket">Formulaire de ticket</h2>
-				<form>
+				<form class="ticket-form">
 					<label for="titre">Titre</label>
 					<input id="titre" name="titre" type="text" placeholder="Titre du ticket">
 					<label for="projet">Projet</label>
@@ -41,7 +41,7 @@
 						<option value="intranet">Intranet RH</option>
 					</select>
 					<label for="description">Description</label>
-					<textarea id="description" name="description" rows="5" placeholder="Décrire la demande"></textarea>
+					<textarea id="description" name="description" rows="8" placeholder="Décrire la demande"></textarea>
 					<label for="priorite">Priorité</label>
 					<select id="priorite" name="priorite">
 						<option value="basse">Basse</option>

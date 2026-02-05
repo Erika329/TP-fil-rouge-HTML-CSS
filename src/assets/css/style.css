@@ -17,14 +17,15 @@ body {
 .body-connexion .login-box {
     background: white;
     width: 350px; /* Largeur du formulaire */
-    height: 400px;
+    height: auto;
+    min-height: 450px;
     margin: 150px auto;
     border-radius: 15px; /* Coins arrondis */
     box-shadow: 5px 5px 10px #b6a9a9, -5px -5px 10px #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px 10px 10px 10px;
+    padding: 30px 16px 20px 16px;
 }
 
 
@@ -88,6 +89,13 @@ body {
     text-shadow: 1px 1px 0 #fff;
     box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
     box-sizing: border-box;
+}
+
+/* description ticket (page creation ticket) */
+.body-dash .ticket-form textarea {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
 }
 
 /* etats des champs */
