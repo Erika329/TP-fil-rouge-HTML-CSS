@@ -4,13 +4,31 @@
 - [Connexion](src/pages/index.html)
 - [Inscription](src/pages/createaccount.html)
 - [Mot de passe oublié](src/pages/forgot-password.html)
-- [Tableau de bord](src/pages/dashboard.html)
+- [Tableau de bord collaborateur](src/pages/dashboard.html)
+- [Tableau de bord client](src/pages/dashboard-client.html)
 - [Clients](src/pages/clients.html)
-- [Projets](src/pages/projects.html)
+- [Projets collaborateur](src/pages/projects.html)
+- [Projets client](src/pages/projects-client.html)
 - [Détail d’un projet](src/pages/project%20detail.html)
 - [Création / édition d’un projet](src/pages/project%20create.html)
-- [Tickets](src/pages/tickets.html)
+- [Tickets collaborateur](src/pages/tickets.html)
+- [Tickets client](src/pages/tickets-client.html)
 - [Détail d’un ticket](src/pages/ticket%20detail.html)
 - [Création d’un ticket](src/pages/ticket%20create.html)
 - [Profil](src/pages/profile.html)
 - [Paramètres](src/pages/settings.html)
+
+Projet :
+Une application de gestion de tickets pour une société de services.
+Les clients suivent leurs demandes et valident si besoin.
+Les collaborateurs créent et traitent les tickets pour les clients.
+
+Explications des différents fichiers HTML :
+- Connexion / inscription / mot de passe oublié : accès utilisateur.
+- Tableau de bord collaborateur : vue interne (création et suivi).
+- Tableau de bord client : vue externe (suivi et validation).
+- Projets collaborateur : tous les projets gérés.
+- Projets client : uniquement les projets du client.
+- Tickets collaborateur : tickets à traiter/créer.
+- Tickets client : tickets du client (suivi/validation).
+- Détail/Création : pages de détail et formulaires.

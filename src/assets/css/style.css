@@ -115,6 +115,14 @@ body {
     cursor: pointer;
     box-shadow: -5px -5px 20px rgb(50, 79, 171), 5px 5px 20px #babecc;
     outline: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+/* survol boutons */
+.body-connexion button:hover{
+    transform: translateY(-2px);
+    box-shadow: -3px -3px 12px rgb(50, 79, 171), 3px 3px 12px #babecc;
+    opacity: 0.9;
 }
 
 /* etats boutons */
@@ -157,6 +165,18 @@ body {
     color: white;
 	padding: 0;
 
+}
+/* styles roles */
+.role-client .tableau_de_bord h1::after {
+    content: " • CLIENT";
+    font-size: 0.9rem;
+    color: #cfe2ff;
+}
+
+.role-collaborateur .tableau_de_bord h1::after {
+    content: " • COLLABORATEUR";
+    font-size: 0.9rem;
+    color: #d7ffd8;
 }
 /* bouton deconnexion */
 #logout {
