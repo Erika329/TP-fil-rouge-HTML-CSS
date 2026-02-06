@@ -38,4 +38,7 @@ Explications des différents fichiers HTML :
 - Utilisateurs / Contrats : gestion admin.
 - Inscription : choix du rôle (collaborateur, client, administrateur).
 - Détail/Création : pages de détail et formulaires.
-Validation du HTML avec le W3C : https://validator.w3.org/
+
+
+Validation du HTML avec le W3C (mettre le lien d'une page html) : 
+https://validator.w3.org/nu/
