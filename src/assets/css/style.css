@@ -2,6 +2,8 @@
 Mise en page CSS
 TP Fil rouge*/
 
+/*gradient de couleur issus du site cssgrandient.io*/
+
 /* PAGE DE CONNEXION */
 
  
@@ -262,6 +264,7 @@ body {
     font-size: 1.05rem;
 }
 
+/* boutons du tableau de bord (liste ) */
  .body-dash .Navigation_principale li {
     background: #f7fafc;
     color: #23408e;
@@ -426,6 +429,7 @@ ul {
 }
 
 /* responsive */
+/* ecran moyen */
 @media (max-width: 1024px) {
     .resume {
         width: 100%;
@@ -433,6 +437,7 @@ ul {
     }
 }
 
+/* tablette */
 @media (max-width: 768px) {
     .login-box {
         width: min(90%, 380px);
@@ -482,6 +487,7 @@ ul {
     }
 }
 
+/* mobile */
 @media (max-width: 480px) {
     form {
         padding: 0 18px;
