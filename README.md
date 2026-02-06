@@ -6,6 +6,7 @@
 - [Mot de passe oublié](src/pages/forgot-password.html)
 - [Tableau de bord collaborateur](src/pages/dashboard.html)
 - [Tableau de bord client](src/pages/dashboard-client.html)
+- [Tableau de bord admin](src/pages/dashboard-admin.html)
 - [Clients](src/pages/clients.html)
 - [Projets collaborateur](src/pages/projects.html)
 - [Projets client](src/pages/projects-client.html)
@@ -13,6 +14,8 @@
 - [Création / édition d’un projet](src/pages/project%20create.html)
 - [Tickets collaborateur](src/pages/tickets.html)
 - [Tickets client](src/pages/tickets-client.html)
+- [Utilisateurs](src/pages/users.html)
+- [Contrats](src/pages/contracts.html)
 - [Détail d’un ticket](src/pages/ticket%20detail.html)
 - [Création d’un ticket](src/pages/ticket%20create.html)
 - [Profil](src/pages/profile.html)
@@ -27,8 +30,11 @@ Explications des différents fichiers HTML :
 - Connexion / inscription / mot de passe oublié : accès utilisateur.
 - Tableau de bord collaborateur : vue interne (création et suivi).
 - Tableau de bord client : vue externe (suivi et validation).
+- Tableau de bord admin : gestion globale.
 - Projets collaborateur : tous les projets gérés.
 - Projets client : uniquement les projets du client.
-- Tickets collaborateur : tickets à traiter/créer.
+- Tickets collaborateur : tickets à traiter/créer. 
 - Tickets client : tickets du client (suivi/validation).
+- Utilisateurs / Contrats : gestion admin.
+- Inscription : choix du rôle (collaborateur, client, administrateur).
 - Détail/Création : pages de détail et formulaires.

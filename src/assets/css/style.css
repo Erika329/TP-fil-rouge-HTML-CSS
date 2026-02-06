@@ -98,6 +98,13 @@ body {
     resize: vertical;
 }
 
+/* description projet (page creation projet) */
+.body-dash .project-form textarea {
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+}
+
 /* etats des champs */
 .body-connexion input:focus {
     box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #fff;
@@ -177,6 +184,12 @@ body {
     content: " • COLLABORATEUR";
     font-size: 0.9rem;
     color: #d7ffd8;
+}
+
+.role-admin .tableau_de_bord h1::after {
+    content: " • ADMIN";
+    font-size: 0.9rem;
+    color: #ffe5b4;
 }
 /* bouton deconnexion */
 #logout {
@@ -378,6 +391,15 @@ table {
     color: #111;
     border-radius: 10px;
     overflow: hidden;
+}
+
+.body-dash table a {
+    color: #1a2a5c;
+    text-decoration: underline;
+}
+
+.body-dash table a:hover {
+    color: #0f1f4f;
 }
 
 th,

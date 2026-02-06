@@ -12,7 +12,7 @@
 	<body class="body-dash role-client">
 		<header>
 			<div class="tableau_de_bord">
-				<h1>Tickets (Client)</h1>
+				<h1>Tickets</h1>
 				<nav class="Navigation_principale">
 					<ul>
 						<li><a href="dashboard-client.html">Tableau de bord</a></li>
@@ -71,6 +71,31 @@
 							<td>À valider</td>
 							<td>Facturable</td>
 							<td><a href="ticket detail.html">Voir</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section aria-labelledby="validation-tickets">
+				<h2 id="validation-tickets">Validation des tickets facturables</h2>
+				<table>
+					<caption>Tickets à valider</caption>
+					<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Titre</th>
+							<th scope="col">Temps passé</th>
+							<th scope="col">Montant estimé</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>#TK-002</td>
+							<td>Ajout export PDF</td>
+							<td>3h</td>
+							<td>240€</td>
+							<td><a href="ticket detail.html">Accepter</a> | <a href="ticket detail.html">Refuser</a></td>
 						</tr>
 					</tbody>
 				</table>

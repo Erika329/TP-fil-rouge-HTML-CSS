@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--Erika KAMDOM FOTSO 3A FISE-->
+<!--TP Fil Rouge / Application de gestion de Ticket-->
+<!--Page gestion utilisateurs-->
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Utilisateurs - Ticketing</title>
+		<link rel="stylesheet" href="../assets/css/style.css">
+	</head>
+	<body class="body-dash role-admin">
+		<header>
+			<div class="tableau_de_bord">
+				<h1>Utilisateurs</h1>
+				<nav class="Navigation_principale">
+					<ul>
+						<li><a href="dashboard-admin.html">Tableau de bord</a></li>
+						<li><a href="users.html">Utilisateurs</a></li>
+						<li><a href="clients.html">Clients</a></li>
+						<li><a href="projects.html">Projets</a></li>
+						<li><a href="tickets.html">Tickets</a></li>
+						<li><a href="contracts.html">Contrats</a></li>
+						<li><a href="settings.html">Paramètres</a></li>
+					</ul>
+				</nav>
+				<button id="logout" class="logout-btn"><a href="index.html">Déconnexion</a></button>
+			</div>
+		</header>
+
+		<main>
+			<section aria-labelledby="liste-utilisateurs">
+				<h2 id="liste-utilisateurs">Liste des utilisateurs</h2>
+				<table>
+					<caption>Comptes actifs</caption>
+					<thead>
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Rôle</th>
+							<th scope="col">Email</th>
+							<th scope="col">Statut</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Erika K.</td>
+							<td>Collaborateur</td>
+							<td>erika@exemple.fr</td>
+							<td>Actif</td>
+						</tr>
+						<tr>
+							<td>Client Nova</td>
+							<td>Client</td>
+							<td>contact@nova.fr</td>
+							<td>Actif</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</main>
+
+		<footer class="footer">
+			<p>© Erika - ESIEA 2026 - Application de gestion de ticketing</p>
+		</footer>
+	</body>
+</html>
