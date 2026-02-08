@@ -4,8 +4,7 @@ TP Fil rouge*/
 
 /*gradient de couleur issus du site cssgrandient.io*/
 
-/* PAGE DE CONNEXION */
-
+/* PAGE DE CONNEXION */ 
  
 /* base globale */
 body {
@@ -31,7 +30,7 @@ body {
 }
 
 
-/* avatar / image */
+/* image */
 .body-connexion img {
     width: 130px;
     height: 130px;
@@ -437,7 +436,7 @@ ul {
     }
 }
 
-/* tablette */
+/* tablette 768px – 1023px*/
 @media (max-width: 768px) {
     .login-box {
         width: min(90%, 380px);
@@ -487,7 +486,7 @@ ul {
     }
 }
 
-/* mobile */
+/* mobile 320x480 */
 @media (max-width: 480px) {
     form {
         padding: 0 18px;
