@@ -1,137 +1,160 @@
-// Erika KAMDOM FOTSO 3A FISE
-// TP Fil Rouge / Application de gestion de Ticket
-// Script JavaScript principal
+//Erika KAMDOM FOTSO
+//TP FIL ROUGE
+//SCRIPT JAVASCRIPT
 
-// On attend que le HTML soit charge avant d'utiliser le DOM
+//------------------//
 
-document.addEventListener("DOMContentLoaded", () => {
-	// Formulaire de creation de ticket
-	const ticketForm = document.querySelector(".ticket-form");
-	if (!ticketForm) {
-		return;
+
+//Vérification des champs du formulaire de connexion
+function check_login(){
+	//On vérifie les champs du formulaire
+	const identifiant = document.querySelector("#identifiant");
+	const mot_de_passe = document.querySelector('#mot_de_passe');
+
+	//On récupère la valeur des input
+	console.log("identifiant :", identifiant.value);
+	//à retirer plus tard pour la sécurité
+	console.log("mot_de_passe :", mot_de_passe.value);
+
+	let nb_errors = 0;
+	// Vérification identifiant
+	const identifiant_error = document.querySelector('#identifiant_error');
+	if (identifiant.value === "") {
+		identifiant_error.classList.remove('hidden');
+		nb_errors++;
+	} else {
+		identifiant_error.classList.add('hidden');
 	}
 
-	// Suggestion automatique pour le champ assignes (collaborateurs)
-	const datalist = document.getElementById("collaborateurs-list");
-	const assignesInput = document.getElementById("assignes");
-
-	// Liste statique des collaborateurs (à améliorer si besoin)
-	const collaborateurs = [
-		"Erika K.",
-		"Client Nova"
-	];
-
-	if (datalist) {
-		datalist.innerHTML = collaborateurs.map(nom => `<option value="${nom}">`).join("");
+	// Vérification mot de passe
+	const mdp_error = document.querySelector('#mdp_error');
+	if (mot_de_passe.value === "") {
+		mdp_error.classList.remove('hidden');
+		nb_errors++;
+	} else {
+		mdp_error.classList.add('hidden');
 	}
 
-	// Ajoute une zone d'affichage des erreurs si elle n'existe pas
-	let errorBox = document.querySelector(".ticket-error-box");
-	if (!errorBox) {
-		errorBox = document.createElement("div");
-		errorBox.className = "ticket-error-box";
-		errorBox.style.display = "none";
-		errorBox.style.background = "#ffe0e0";
-		errorBox.style.color = "#b00020";
-		errorBox.style.border = "1px solid #b00020";
-		errorBox.style.borderRadius = "6px";
-		errorBox.style.padding = "10px";
-		errorBox.style.marginBottom = "16px";
-		errorBox.style.fontWeight = "bold";
-		errorBox.style.boxShadow = "0 2px 8px rgba(176,0,32,0.08)";
-		errorBox.style.transition = "all 0.3s";
-		ticketForm.parentNode.insertBefore(errorBox, ticketForm);
-	}
-
-	ticketForm.addEventListener("submit", (event) => {
+	return nb_errors;
+}	
+//Validation du formulaire de connexion 
+const f = document.querySelector('#submitform');
+if(f) {
+	//écouteur d'évènement 
+	f.addEventListener("submit", function(event){
+		// on empeche la soumission du formulaire
+		// pour éviter le rechargement de page
 		event.preventDefault();
+		console.log("Formulaire soumis");
 
-		// Champs du formulaire
-		const titre = document.querySelector("#titre");
-		const projet = document.querySelector("#projet");
-		const description = document.querySelector("#description");
-		const priorite = document.querySelector("#priorite");
-		const type = document.querySelector("#type");
-		const estimation = document.querySelector("#estimation");
-		const assignes = document.querySelector("#assignes");
-
-		// Liste des champs manquants
-		const missingFields = [];
-
-		if (!titre || titre.value.trim() === "") {
-			missingFields.push("Titre");
-		}
-		if (!projet || projet.value.trim() === "") {
-			missingFields.push("Projet");
-		}
-		if (!description || description.value.trim() === "") {
-			missingFields.push("Description");
-		}
-		if (!priorite || priorite.value.trim() === "") {
-			missingFields.push("Priorité");
-		}
-		if (!type || type.value.trim() === "") {
-			missingFields.push("Type");
-		}
-		if (!estimation || estimation.value.trim() === "") {
-			missingFields.push("Temps estimé");
-		}
-		if (!assignes || assignes.value.trim() === "") {
-			missingFields.push("Collaborateur(s)");
-		}
-
-		let estimationInvalid = false;
-		if (estimation && estimation.value.trim() !== "") {
-			if (Number.isNaN(Number(estimation.value)) || Number(estimation.value) < 0) {
-				estimationInvalid = true;
-			}
-		}
-
-		if (missingFields.length > 0 || estimationInvalid) {
-			let errorMsg = "";
-			if (missingFields.length > 0) {
-				errorMsg += `<span style='color:#b00020;font-weight:bold;'>Attention :</span> <span style='color:#b00020'>${missingFields.join(", ")}</span> obligatoire${missingFields.length > 1 ? 's' : ''}.`;
-			}
-			if (estimationInvalid) {
-				errorMsg += (errorMsg ? "<br>" : "") + "Le temps estimé est invalide.";
-			}
-			errorBox.innerHTML = errorMsg;
-			errorBox.style.display = "block";
-			return;
-		}
-
-		// Formulaire valide
-		errorBox.style.display = "none";
-		errorBox.innerHTML = "";
-		// Affichage d'une notification simple (slide-in) :
-		let notif = document.createElement("div");
-		notif.textContent = "Ticket enregistré avec succès !";
-		notif.style.position = "fixed";
-		notif.style.top = "24px";
-		notif.style.right = "-350px";
-		notif.style.background = "#4caf50";
-		notif.style.color = "#fff";
-		notif.style.padding = "14px 32px";
-		notif.style.borderRadius = "8px";
-		notif.style.boxShadow = "0 2px 12px rgba(0,0,0,0.15)";
-		notif.style.fontWeight = "bold";
-		notif.style.fontSize = "1.1em";
-		notif.style.zIndex = "9999";
-		notif.style.transition = "right 0.5s cubic-bezier(.4,2,.6,1)";
-		document.body.appendChild(notif);
-		setTimeout(() => {
-			notif.style.right = "24px";
-		}, 50);
-		setTimeout(() => {
-			notif.style.right = "-350px";
-		}, 2200);
-		setTimeout(() => {
-			notif.remove();
-		}, 2700);
-
-		ticketForm.reset();
-		if (assignes) {
-			assignes.value = "";
+		// Utilisation de la fonction check_login pour valider le formulaire
+		const connexion_valide = document.querySelector('#connexion_valide');
+		const nb_errors = check_login();
+		console.log("nb_errors :", nb_errors);
+		// Si aucune erreur on affiche la validation de connexion
+		if(nb_errors === 0){
+			connexion_valide.classList.remove('hidden');
+			console.log("Connexion validée");
+		} else {
+			// Sinon, on masque la validation
+			connexion_valide.classList.add('hidden');
 		}
 	});
-});
+}
+
+//------------//
+
+// Validation du formulaire mot de passe oublié
+const forgotForm = document.querySelector('#forgotform');
+if(forgotForm) {
+	forgotForm.addEventListener('submit', function(event) {
+		event.preventDefault();
+		console.log('Formulaire mot de passe oublié soumis');
+		const email = document.querySelector('#email');
+		const email_error = document.querySelector('#email_error');
+		const mail_valide = document.querySelector('#mail_valide');
+		let nb_errors = 0;
+		// Vérification email
+		if(!email.value) {
+			email_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			email_error.classList.add('hidden');
+		}
+		if(nb_errors === 0) {
+			mail_valide.classList.remove('hidden');
+			console.log('Mail envoyé');
+		} else {
+			mail_valide.classList.add('hidden');
+		}
+	});
+}
+
+//------------//
+
+// Validation du formulaire de création de compte
+const createForm = document.querySelector('#createform');
+if(createForm) {
+	createForm.addEventListener('submit', function(event) {
+		event.preventDefault();
+		let nb_errors = 0;
+		const prenom = document.querySelector('#prenom');
+		const nom = document.querySelector('#nom');
+		const email = document.querySelector('#email');
+		const role = document.querySelector('#role');
+		const mot_de_passe = document.querySelector('#mot_de_passe');
+		const prenom_error = document.querySelector('#prenom_error');
+		const nom_error = document.querySelector('#nom_error');
+		const email_error = document.querySelector('#email_error');
+		const role_error = document.querySelector('#role_error');
+		const mdp_error = document.querySelector('#mdp_error');
+		const creation_valide = document.querySelector('#creation_valide');
+		// Vérification prénom
+		if(!prenom.value) {
+			prenom_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			prenom_error.classList.add('hidden');
+		}
+		// Vérification nom
+		if(!nom.value) {
+			nom_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			nom_error.classList.add('hidden');
+		}
+		// Vérification email
+		if(!email.value) {
+			email_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			email_error.classList.add('hidden');
+		}
+		// Vérification rôle
+		if(!role.value) {
+			role_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			role_error.classList.add('hidden');
+		}
+		// Vérification mot de passe
+		if(!mot_de_passe.value) {
+			mdp_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			mdp_error.classList.add('hidden');
+		}
+		if(nb_errors === 0) {
+			creation_valide.classList.remove('hidden');
+			console.log('Compte créé');
+		} else {
+			creation_valide.classList.add('hidden');
+		}
+	});
+}
+//Validation du formulaire de création de ticket
+
+
+//Validation du formulaire de création de projet
+
+

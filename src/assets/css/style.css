@@ -2,10 +2,33 @@
 Mise en page CSS
 TP Fil rouge*/
 
+/*classe pour cacher un élément*/
+
+.hidden {
+    display: none !important;
+}
+
+.error-text {
+    font-size: 0.82rem;
+    color: #b23b2c;
+    background: #ffe7df;
+    border: 1px solid #f2c2b8;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.valid-text {
+    font-size: 0.82rem;
+    color: #30b22c;
+    background: #dfffe9;
+    border: 1px solid #bff2b8;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
 /*gradient de couleur issus du site cssgrandient.io*/
 
-/* PAGE DE CONNEXION */ 
- 
+/*PAGE DE CONNEXION */ 
+
 /* base globale */
 body {
     background: none;
@@ -17,7 +40,7 @@ body {
 /* boite de connexion */
 .body-connexion .login-box {
     background: white;
-    width: 350px; /* Largeur du formulaire */
+    width: 350px; /*Largeur du formulaire*/
     height: auto;
     min-height: 450px;
     margin: 150px auto;
