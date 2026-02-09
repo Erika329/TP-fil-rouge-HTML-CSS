@@ -18,8 +18,8 @@
 						<li><a href="dashboard-client.html">Tableau de bord</a></li>
 						<li><a href="projects-client.html">Projets</a></li>
 						<li><a href="tickets-client.html">Tickets</a></li>
-						<li><a href="profile.html">Profil</a></li>
-						<li><a href="settings.html">Paramètres</a></li>
+						<li><a href="profile-client.html">Profil</a></li>
+						<li><a href="settings-client.html">Paramètres</a></li>
 					</ul>
 				</nav>
 				<button id="logout" class="logout-btn"><a href="index.html">Déconnexion</a></button>
@@ -62,7 +62,7 @@
 							<td>Portail client</td>
 							<td>En cours</td>
 							<td>Inclus</td>
-							<td><a href="ticket detail.html">Voir</a></td>
+							<td><a href="ticket-detail-client.html">Voir</a></td>
 						</tr>
 						<tr>
 							<td>#TK-002</td>
@@ -95,7 +95,7 @@
 							<td>Ajout export PDF</td>
 							<td>3h</td>
 							<td>240€</td>
-							<td><a href="ticket detail.html">Accepter</a> | <a href="ticket detail.html">Refuser</a></td>
+							<td><button class="btn-accepter">Accepter</button> | <button class="btn-refuser">Refuser</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -105,6 +105,7 @@
 		<footer class="footer">
 			<p>© Erika - ESIEA 2026 - Application de gestion de ticketing</p>
 		</footer>
+		<div id="notif-ticket-client" class="notif" style="display:none;"></div>
 		<script src="../js/app.js" defer></script>
 	</body>
 </html>

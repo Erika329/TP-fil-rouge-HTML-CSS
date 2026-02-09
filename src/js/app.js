@@ -1,3 +1,23 @@
+// Notifications validation/refus ticket client
+const notifTicketClient = document.getElementById('notif-ticket-client');
+const btnsAccepter = document.querySelectorAll('.btn-accepter');
+const btnsRefuser = document.querySelectorAll('.btn-refuser');
+if (notifTicketClient && (btnsAccepter.length > 0 || btnsRefuser.length > 0)) {
+	btnsAccepter.forEach(btn => {
+		btn.addEventListener('click', function() {
+			notifTicketClient.textContent = 'Le ticket a été accepté.';
+			notifTicketClient.style.display = 'block';
+			setTimeout(() => { notifTicketClient.style.display = 'none'; }, 2500);
+		});
+	});
+	btnsRefuser.forEach(btn => {
+		btn.addEventListener('click', function() {
+			notifTicketClient.textContent = 'Le ticket a été refusé.';
+			notifTicketClient.style.display = 'block';
+			setTimeout(() => { notifTicketClient.style.display = 'none'; }, 2500);
+		});
+	});
+}
 //Erika KAMDOM FOTSO
 //TP FIL ROUGE
 //SCRIPT JAVASCRIPT
