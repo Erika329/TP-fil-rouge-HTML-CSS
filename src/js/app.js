@@ -292,9 +292,7 @@ if(projectForm) {
 }
 //---------------//
 
-
-
-// --- Filtrage des tickets (SIMPLE, comme projets) ---
+// Filtrer les tickets
 const rechercheTicket = document.querySelector('#recherche-ticket');
 const ticketsTbody = document.querySelector('.tickets-table tbody');
 const filtreStatut = document.querySelector('#filtre-statut');
@@ -363,3 +361,56 @@ if (rechercheTicket && ticketsTbody) {
 if (boutonFiltrerTicket && ticketsTbody) {
 	boutonFiltrerTicket.addEventListener('click', filtrerTickets);
 }
+
+
+// Filtrer les tickets clients 
+const rechercheTicketClient = document.querySelector('#recherche-ticket');
+const ticketsClientTbody = document.querySelector('main section:first-of-type table tbody');
+const filtreStatutClient = document.querySelector('#filtre-statut');
+const boutonFiltrerTicketClient = document.querySelector('form button[type="button"]');
+
+function filtrerTicketsClients() {
+	const filtreRecherche = rechercheTicketClient ? rechercheTicketClient.value.toLowerCase() : "";
+	const filtreStatutValue = filtreStatutClient ? filtreStatutClient.value.toLowerCase() : "tous";
+	const lignes = ticketsClientTbody ? ticketsClientTbody.querySelectorAll('tr') : [];
+	lignes.forEach(function(tr) {
+		const idTicket = tr.querySelectorAll('td')[0];
+		const titreTicket = tr.querySelectorAll('td')[1];
+		const statutTicket = tr.querySelectorAll('td')[3];
+		let matchRecherche = true;
+		let matchStatut = true;
+		// Recherche sur ID ou titre
+		if (filtreRecherche) {
+			matchRecherche = false;
+			if (idTicket && idTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
+			if (titreTicket && titreTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
+		}
+		// Filtre statut (harmonisation)
+		if (filtreStatutValue !== "tous" && statutTicket) {
+			function normalizeStatut(val) {
+				val = val.trim().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+				if(val === "en cours") return "en-cours";
+				if(val === "a valider" || val === "à valider") return "a-valider";
+				if(val === "termine" || val === "terminé") return "termine";
+				if(val === "nouveau") return "nouveau";
+				return val;
+			}
+			const statutCell = normalizeStatut(statutTicket.textContent);
+			const statutFiltre = filtreStatutValue;
+			matchStatut = (statutCell === statutFiltre);
+		}
+		if (matchRecherche && matchStatut) {
+			tr.style.display = '';
+		} else {
+			tr.style.display = 'none';
+		}
+	});
+}
+
+if (rechercheTicketClient && ticketsClientTbody) {
+	rechercheTicketClient.addEventListener('input', filtrerTicketsClients);
+}
+if (boutonFiltrerTicketClient && ticketsClientTbody) {
+	boutonFiltrerTicketClient.addEventListener('click', filtrerTicketsClients);
+}
+
