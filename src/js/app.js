@@ -165,7 +165,9 @@ if(createForm) {
 	});
 }
 
-//Filtre liste des projets par la recherche
+//----------------------//
+
+//Filtrer la liste des projets par la recherche
 
 const rechercheProjet = document.querySelector('#recherche-projet');
 const projetsTbody = document.querySelector('#projets-tbody');
@@ -202,9 +204,162 @@ if(boutonFiltrer && projetsTbody) {
 	boutonFiltrer.addEventListener('click', filtrerProjets);
 }
 
-//Validation du formulaire de création de ticket
+//---------------------//
+
+// Validation du formulaire de création de projet
+const projectForm = document.querySelector('#projectform');
+if(projectForm) {
+	projectForm.addEventListener('submit', function(event) {
+		event.preventDefault();
+		let nb_errors = 0;
+		const nomProjet = document.querySelector('#nom-projet');
+		const client = document.querySelector('#client');
+		const contrat = document.querySelector('#contrat');
+		const taux = document.querySelector('#taux');
+		const periode = document.querySelector('#periode');
+		const collaborateurs = document.querySelector('#collaborateurs');
+		const descriptionProjet = document.querySelector('#description-projet');
+		const nomProjet_error = document.querySelector('#nom_projet_error');
+		const client_error = document.querySelector('#client_error');
+		const contrat_error = document.querySelector('#contrat_error');
+		const taux_error = document.querySelector('#taux_error');
+		const periode_error = document.querySelector('#periode_error');
+		const collaborateurs_error = document.querySelector('#collaborateurs_error');
+		const descriptionProjet_error = document.querySelector('#description_projet_error');
+		const projet_valide = document.querySelector('#projet_valide');
+
+		// Affichage des valeurs dans la console
+		console.log('nom-projet :', nomProjet.value);
+		console.log('client :', client.value);
+		console.log('contrat :', contrat.value);
+		console.log('taux :', taux.value);
+		console.log('periode :', periode.value);
+		console.log('collaborateurs :', collaborateurs.value);
+		console.log('description-projet :', descriptionProjet.value);
+
+		if(!nomProjet.value) {
+			nomProjet_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			nomProjet_error.classList.add('hidden');
+		}
+		if(!client.value) {
+			client_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			client_error.classList.add('hidden');
+		}
+		if(!contrat.value) {
+			contrat_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			contrat_error.classList.add('hidden');
+		}
+		if(!taux.value) {
+			taux_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			taux_error.classList.add('hidden');
+		}
+		if(!periode.value) {
+			periode_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			periode_error.classList.add('hidden');
+		}
+		if(!collaborateurs.value) {
+			collaborateurs_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			collaborateurs_error.classList.add('hidden');
+		}
+		if(!descriptionProjet.value) {
+			descriptionProjet_error.classList.remove('hidden');
+			nb_errors++;
+		} else {
+			descriptionProjet_error.classList.add('hidden');
+		}
+
+		console.log('nb_errors :', nb_errors);
+
+		if(nb_errors === 0) {
+			projet_valide.classList.remove('hidden');
+			console.log('Projet enregistré');
+		} else {
+			projet_valide.classList.add('hidden');
+		}
+	});
+}
+//---------------//
 
 
-//Validation du formulaire de création de projet
+
+// --- Filtrage des tickets (SIMPLE, comme projets) ---
+const rechercheTicket = document.querySelector('#recherche-ticket');
+const ticketsTbody = document.querySelector('.tickets-table tbody');
+const filtreStatut = document.querySelector('#filtre-statut');
+const filtreProjet = document.querySelector('#filtre-projet');
+const filtreType = document.querySelector('#filtre-type');
+const boutonFiltrerTicket = document.querySelector('form button[type="button"]');
 
 
+function filtrerTickets() {
+    const filtreRecherche = rechercheTicket ? rechercheTicket.value.toLowerCase() : "";
+    const filtreStatutValue = filtreStatut ? filtreStatut.value.toLowerCase() : "tous";
+    const filtreProjetValue = filtreProjet ? filtreProjet.value.toLowerCase() : "tous";
+    const filtreTypeValue = filtreType ? filtreType.value.toLowerCase() : "tous";
+    const lignes = ticketsTbody ? ticketsTbody.querySelectorAll('tr') : [];
+    lignes.forEach(function(tr) {
+        const idTicket = tr.querySelectorAll('td')[0];
+        const titreTicket = tr.querySelectorAll('td')[1];
+        const projetTicket = tr.querySelectorAll('td')[2];
+        const statutTicket = tr.querySelectorAll('td')[3];
+        const typeTicket = tr.querySelectorAll('td')[5];
+        let matchRecherche = true;
+        let matchStatut = true;
+        let matchProjet = true;
+        let matchType = true;
+        // Recherche sur ID ou titre ou projet ou statut ou type
+        if (filtreRecherche) {
+            matchRecherche = false;
+            if (idTicket && idTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
+            if (titreTicket && titreTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
+            if (projetTicket && projetTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
+            if (statutTicket && statutTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
+            if (typeTicket && typeTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
+        }
+        // Filtres déroulants
+		if (filtreStatutValue !== "tous" && statutTicket) {
+			// Harmonisation des valeurs pour correspondre au select
+			function normalizeStatut(val) {
+				val = val.trim().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
+				if(val === "en cours") return "en-cours";
+				if(val === "a valider" || val === "à valider") return "a-valider";
+				if(val === "termine" || val === "terminé") return "termine";
+				if(val === "nouveau") return "nouveau";
+				return val;
+			}
+			const statutCell = normalizeStatut(statutTicket.textContent);
+			const statutFiltre = filtreStatutValue;
+			matchStatut = (statutCell === statutFiltre);
+		}
+        if (filtreProjetValue !== "tous" && projetTicket) {
+            matchProjet = projetTicket.textContent.toLowerCase().includes(filtreProjetValue);
+        }
+        if (filtreTypeValue !== "tous" && typeTicket) {
+            matchType = typeTicket.textContent.toLowerCase().includes(filtreTypeValue);
+        }
+        if (matchRecherche && matchStatut && matchProjet && matchType) {
+            tr.style.display = '';
+        } else {
+            tr.style.display = 'none';
+        }
+    });
+}
+
+if (rechercheTicket && ticketsTbody) {
+	rechercheTicket.addEventListener('input', filtrerTickets);
+}
+if (boutonFiltrerTicket && ticketsTbody) {
+	boutonFiltrerTicket.addEventListener('click', filtrerTickets);
+}

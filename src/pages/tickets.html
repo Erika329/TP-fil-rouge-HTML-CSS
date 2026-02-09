@@ -31,32 +31,31 @@
 		<main>
 			<section aria-labelledby="liste-tickets">
 				<h2 id="liste-tickets">Liste des tickets</h2>
-				<div class="filtre-tickets-type" style="margin-bottom:18px;display:flex;gap:12px;">
-					<button type="button" class="filtre-btn" data-type="all" style="background:#e0e0e0;color:#222;border:none;padding:8px 18px;border-radius:6px;font-weight:bold;cursor:pointer;">Tous</button>
-					<button type="button" class="filtre-btn" data-type="Inclus" style="background:#f5faff;color:#1976d2;border:none;padding:8px 18px;border-radius:6px;font-weight:bold;cursor:pointer;">Inclus</button>
-					<button type="button" class="filtre-btn" data-type="Facturable" style="background:#fff8e1;color:#b26a00;border:none;padding:8px 18px;border-radius:6px;font-weight:bold;cursor:pointer;">Facturable</button>
-				</div>
 				<form>
-				<label for="recherche-ticket">Recherche</label>
-				<input id="recherche-ticket" name="recherche-ticket" type="search" placeholder="Titre ou ID">
-				<label for="filtre-statut">Statut</label>
-				<select id="filtre-statut" name="filtre-statut">
-				<option value="tous">Tous</option>
-				<option value="nouveau">Nouveau</option>
-				<option value="en-cours">En cours</option>
-				<option value="a-valider">À valider</option>
-				<option value="termine">Terminé</option>
-				</select>
-				<label for="filtre-projet">Projet</label>
-				<select id="filtre-projet" name="filtre-projet">
-				<option value="tous">Tous</option>
-				<option value="portail">Portail client</option>
-				<option value="intranet">Intranet RH</option>
-				</select>
-				<button type="button">Filtrer</button>
+					<label for="recherche-ticket">Recherche</label>
+					<input id="recherche-ticket" name="recherche-ticket" type="search" placeholder="Titre ou ID">
+					<label for="filtre-statut">Statut</label>
+					<select id="filtre-statut" name="filtre-statut">
+						<option value="tous">Tous</option>
+						<option value="nouveau">Nouveau</option>
+						<option value="en-cours">En cours</option>
+						<option value="a-valider">À valider</option>
+						<option value="termine">Terminé</option>
+					</select>
+					<label for="filtre-projet">Projet</label>
+					<select id="filtre-projet" name="filtre-projet">
+						<option value="tous">Tous</option>
+						<option value="portail">Portail client</option>
+						<option value="intranet">Intranet RH</option>
+					</select>
+					<label for="filtre-type">Type</label>
+					<select id="filtre-type" name="filtre-type">
+						<option value="tous">Tous</option>
+						<option value="inclus">Inclus</option>
+						<option value="facturable">Facturable</option>
+					</select>
+					<button type="button">Filtrer</button>
 				</form>
-
-				   <!-- La classe tickets-table permet au JS d'afficher dynamiquement les tickets -->
 				   <table class="tickets-table">
 					<caption>Tickets en cours</caption>
 					<thead>

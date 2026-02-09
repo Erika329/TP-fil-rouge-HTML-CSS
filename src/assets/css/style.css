@@ -9,12 +9,12 @@ TP Fil rouge*/
 }
 
 .error-text {
-    font-size: 0.82rem;
+    font-size: 0.7rem;
     color: #b23b2c;
     background: #ffe7df;
     border: 1px solid #f2c2b8;
-    padding: 6px 10px;
-    border-radius: 8px;
+    padding: 4px 6px;
+    border-radius: 4px;
 }
 
 .valid-text {
