@@ -109,6 +109,14 @@ if(createForm) {
 		const role_error = document.querySelector('#role_error');
 		const mdp_error = document.querySelector('#mdp_error');
 		const creation_valide = document.querySelector('#creation_valide');
+
+		// Affichage des valeurs dans la console
+		console.log('prenom :', prenom.value);
+		console.log('nom :', nom.value);
+		console.log('email :', email.value);
+		console.log('role :', role.value);
+		console.log('mot_de_passe :', mot_de_passe.value);
+
 		// Vérification prénom
 		if(!prenom.value) {
 			prenom_error.classList.remove('hidden');
@@ -144,6 +152,10 @@ if(createForm) {
 		} else {
 			mdp_error.classList.add('hidden');
 		}
+
+		// Affichage du nombre d'erreurs
+		console.log('nb_errors :', nb_errors);
+
 		if(nb_errors === 0) {
 			creation_valide.classList.remove('hidden');
 			console.log('Compte créé');
@@ -152,6 +164,44 @@ if(createForm) {
 		}
 	});
 }
+
+//Filtre liste des projets par la recherche
+
+const rechercheProjet = document.querySelector('#recherche-projet');
+const projetsTbody = document.querySelector('#projets-tbody');
+const filtreClient = document.querySelector('#filtre-client');
+const boutonFiltrer = document.querySelector('form button[type="button"]');
+
+function filtrerProjets() {
+	const filtreNom = rechercheProjet ? rechercheProjet.value.toLowerCase() : "";
+	const filtreClientValue = filtreClient ? filtreClient.value.toLowerCase() : "tous";
+	const lignes = projetsTbody ? projetsTbody.querySelectorAll('tr') : [];
+	lignes.forEach(function(tr) {
+		const nomProjet = tr.querySelector('td a');
+		const clientProjet = tr.querySelectorAll('td')[1];
+		let matchNom = true;
+		let matchClient = true;
+		if (filtreNom && nomProjet) {
+			matchNom = nomProjet.textContent.toLowerCase().includes(filtreNom);
+		}
+		if (filtreClientValue !== "tous" && clientProjet) {
+			matchClient = clientProjet.textContent.toLowerCase().includes(filtreClientValue);
+		}
+		if (matchNom && matchClient) {
+			tr.style.display = '';
+		} else {
+			tr.style.display = 'none';
+		}
+	});
+}
+
+if(rechercheProjet && projetsTbody) {
+	rechercheProjet.addEventListener('input', filtrerProjets);
+}
+if(boutonFiltrer && projetsTbody) {
+	boutonFiltrer.addEventListener('click', filtrerProjets);
+}
+
 //Validation du formulaire de création de ticket
 
 
