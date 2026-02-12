@@ -169,8 +169,9 @@ if(createForm) {
 
 
 // Validation formulaire création utilisateur
-const userForm = document.querySelector('.ticket-form');
+const userForm = document.querySelector('#user-form'); // id du form
 if(userForm) {
+
     const nom = document.querySelector('#nom');
     const prenom = document.querySelector('#prenom');
     const email = document.querySelector('#mail');
@@ -179,26 +180,40 @@ if(userForm) {
     const nomError = document.querySelector('#nom_error');
     const prenomError = document.querySelector('#prenom_error');
     const emailError = document.querySelector('#email_error');
+    const roleError = document.querySelector('#role_error');
 
-    userForm.querySelector('button').addEventListener('click', function() {
+    // Création de la notification si elle n'existe pas encore
+    let notifUser = document.querySelector('.notif');
+    if(!notifUser) {
+        notifUser = document.createElement('div');
+        notifUser.classList.add('notif');
+        document.body.appendChild(notifUser);
+    }
+
+    userForm.addEventListener('submit', function(event){
+        event.preventDefault();
+
         let errors = 0;
 
-        if(!nom.value.trim()) { nomError.classList.remove('hidden'); errors++; } 
+        if(!nom.value.trim()){ nomError.classList.remove('hidden'); errors++; } 
         else { nomError.classList.add('hidden'); }
 
-        if(!prenom.value.trim()) { prenomError.classList.remove('hidden'); errors++; } 
+        if(!prenom.value.trim()){ prenomError.classList.remove('hidden'); errors++; } 
         else { prenomError.classList.add('hidden'); }
 
-        if(!email.value.trim()) { emailError.classList.remove('hidden'); errors++; } 
+        if(!email.value.trim()){ emailError.classList.remove('hidden'); errors++; } 
         else { emailError.classList.add('hidden'); }
 
-        if(!role.value) { role.classList.add('error-text'); errors++; } 
-        else { role.classList.remove('error-text'); }
+        if(!role.value){ roleError.classList.remove('hidden'); errors++; } 
+        else { roleError.classList.add('hidden'); }
 
-        if(errors === 0) {
+        //Ajout du log du nombre d'erreurs 
+        console.log('Nbr erreurs :', errors);
+
+        if(errors === 0){
             notifUser.textContent = `L'utilisateur ${prenom.value} ${nom.value} a été créé avec succès.`;
             notifUser.style.display = 'block';
-            setTimeout(() => { notifUser.style.display = 'none'; }, 2500);
+            setTimeout(()=>{ notifUser.style.display = 'none'; }, 2500);
 
             // Reset formulaire
             nom.value = '';
@@ -208,6 +223,85 @@ if(userForm) {
         }
     });
 }
+
+// ---------------------- //
+// FORMULAIRE DE CRÉATION DE TICKET
+
+const ticketForm = document.querySelector('.ticket-form');
+const btnEnregistrer = document.querySelector('#btn-enregistrer');
+
+// Création d'une notification glissante si elle n'existe pas
+let notifTicket = document.querySelector('.notif-ticket');
+if(!notifTicket) {
+    notifTicket = document.createElement('div');
+    notifTicket.classList.add('notif', 'notif-ticket');
+    document.body.appendChild(notifTicket);
+}
+
+if(btnEnregistrer && ticketForm) {
+    btnEnregistrer.addEventListener('click', function() {
+        let nb_errors = 0;
+
+        // Récupération des champs
+        const titre = document.querySelector('#titre');
+        const projet = document.querySelector('#projet');
+        const description = document.querySelector('#description');
+        const priorite = document.querySelector('#priorite');
+        const type = document.querySelector('#type');
+        const estimation = document.querySelector('#estimation');
+        const assignes = document.querySelector('#assignes');
+        const statut = document.querySelector('#statut');
+
+        // Récupération des div d'erreur
+        const titre_error = document.querySelector('#titre_error');
+        const projet_error = document.querySelector('#projet_error');
+        const description_error = document.querySelector('#description_error');
+        const priorite_error = document.querySelector('#priorite_error');
+        const type_error = document.querySelector('#type_error');
+        const estimation_error = document.querySelector('#estimation_error');
+        const assignes_error = document.querySelector('#assignes_error');
+        const statut_error = document.querySelector('#statut_error');
+
+        // Vérification des champs
+        if(!titre.value.trim()){ titre_error.classList.remove('hidden'); nb_errors++; } 
+        else { titre_error.classList.add('hidden'); }
+
+        if(!projet.value.trim()){ projet_error.classList.remove('hidden'); nb_errors++; } 
+        else { projet_error.classList.add('hidden'); }
+
+        if(!description.value.trim()){ description_error.classList.remove('hidden'); nb_errors++; } 
+        else { description_error.classList.add('hidden'); }
+
+        if(!priorite.value.trim()){ priorite_error.classList.remove('hidden'); nb_errors++; } 
+        else { priorite_error.classList.add('hidden'); }
+
+        if(!type.value.trim()){ type_error.classList.remove('hidden'); nb_errors++; } 
+        else { type_error.classList.add('hidden'); }
+
+        if(!estimation.value.trim()){ estimation_error.classList.remove('hidden'); nb_errors++; } 
+        else { estimation_error.classList.add('hidden'); }
+
+        if(!assignes.value.trim()){ assignes_error.classList.remove('hidden'); nb_errors++; } 
+        else { assignes_error.classList.add('hidden'); }
+
+        if(!statut.value.trim()){ statut_error.classList.remove('hidden'); nb_errors++; } 
+        else { statut_error.classList.add('hidden'); }
+
+        console.log('Nombre d\'erreurs :', nb_errors);
+
+        // Si pas d'erreur, afficher notification et reset form
+        if(nb_errors === 0) {
+            notifTicket.textContent = `Le ticket "${titre.value}" a été créé avec succès.`;
+            notifTicket.style.display = 'block';
+            setTimeout(()=>{ notifTicket.style.display = 'none'; }, 2500);
+
+            // Reset formulaire
+            ticketForm.reset();
+        }
+    });
+}
+
+
 
 
 //--------------------------------------------//
