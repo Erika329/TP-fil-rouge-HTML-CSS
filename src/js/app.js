@@ -1,29 +1,9 @@
-// Notifications validation/refus ticket client
-const notifTicketClient = document.getElementById('notif-ticket-client');
-const btnsAccepter = document.querySelectorAll('.btn-accepter');
-const btnsRefuser = document.querySelectorAll('.btn-refuser');
-if (notifTicketClient && (btnsAccepter.length > 0 || btnsRefuser.length > 0)) {
-	btnsAccepter.forEach(btn => {
-		btn.addEventListener('click', function() {
-			notifTicketClient.textContent = 'Le ticket a été accepté.';
-			notifTicketClient.style.display = 'block';
-			setTimeout(() => { notifTicketClient.style.display = 'none'; }, 2500);
-		});
-	});
-	btnsRefuser.forEach(btn => {
-		btn.addEventListener('click', function() {
-			notifTicketClient.textContent = 'Le ticket a été refusé.';
-			notifTicketClient.style.display = 'block';
-			setTimeout(() => { notifTicketClient.style.display = 'none'; }, 2500);
-		});
-	});
-}
 //Erika KAMDOM FOTSO
 //TP FIL ROUGE
 //SCRIPT JAVASCRIPT
 
-//------------------//
-
+//------------------// 
+//FORMULAIRES 
 
 //Vérification des champs du formulaire de connexion
 function check_login(){
@@ -187,44 +167,179 @@ if(createForm) {
 
 //----------------------//
 
-//Filtrer la liste des projets par la recherche
 
-const rechercheProjet = document.querySelector('#recherche-projet');
-const projetsTbody = document.querySelector('#projets-tbody');
-const filtreClient = document.querySelector('#filtre-client');
-const boutonFiltrer = document.querySelector('form button[type="button"]');
+// Validation formulaire création utilisateur
+const userForm = document.querySelector('.ticket-form');
+if(userForm) {
+    const nom = document.querySelector('#nom');
+    const prenom = document.querySelector('#prenom');
+    const email = document.querySelector('#mail');
+    const role = document.querySelector('#role');
 
-function filtrerProjets() {
-	const filtreNom = rechercheProjet ? rechercheProjet.value.toLowerCase() : "";
-	const filtreClientValue = filtreClient ? filtreClient.value.toLowerCase() : "tous";
-	const lignes = projetsTbody ? projetsTbody.querySelectorAll('tr') : [];
+    const nomError = document.querySelector('#nom_error');
+    const prenomError = document.querySelector('#prenom_error');
+    const emailError = document.querySelector('#email_error');
+
+    userForm.querySelector('button').addEventListener('click', function() {
+        let errors = 0;
+
+        if(!nom.value.trim()) { nomError.classList.remove('hidden'); errors++; } 
+        else { nomError.classList.add('hidden'); }
+
+        if(!prenom.value.trim()) { prenomError.classList.remove('hidden'); errors++; } 
+        else { prenomError.classList.add('hidden'); }
+
+        if(!email.value.trim()) { emailError.classList.remove('hidden'); errors++; } 
+        else { emailError.classList.add('hidden'); }
+
+        if(!role.value) { role.classList.add('error-text'); errors++; } 
+        else { role.classList.remove('error-text'); }
+
+        if(errors === 0) {
+            notifUser.textContent = `L'utilisateur ${prenom.value} ${nom.value} a été créé avec succès.`;
+            notifUser.style.display = 'block';
+            setTimeout(() => { notifUser.style.display = 'none'; }, 2500);
+
+            // Reset formulaire
+            nom.value = '';
+            prenom.value = '';
+            email.value = '';
+            role.value = '';
+        }
+    });
+}
+
+
+//--------------------------------------------//
+
+//FILTRE DES TICKETS 
+
+
+function filtrerTable(config) {
+
+	const recherche = config.recherche ? config.recherche.value.toLowerCase() : "";
+	const lignes = config.tbody ? config.tbody.querySelectorAll("tr") : [];
+
 	lignes.forEach(function(tr) {
-		const nomProjet = tr.querySelector('td a');
-		const clientProjet = tr.querySelectorAll('td')[1];
-		let matchNom = true;
-		let matchClient = true;
-		if (filtreNom && nomProjet) {
-			matchNom = nomProjet.textContent.toLowerCase().includes(filtreNom);
+
+		const cellules = tr.querySelectorAll("td");
+		let visible = true;
+
+		// Recherche le texte dans certaines colonnes
+		if (recherche && config.searchColumns) {
+
+			let match = false;
+
+			config.searchColumns.forEach(function(index) {
+				if (cellules[index] &&
+					cellules[index].textContent.toLowerCase().includes(recherche)) {
+					match = true;
+				}
+			});
+
+			if (!match) visible = false;
 		}
-		if (filtreClientValue !== "tous" && clientProjet) {
-			matchClient = clientProjet.textContent.toLowerCase().includes(filtreClientValue);
+
+		// Filtres select
+		if (config.selectFilters) {
+
+			config.selectFilters.forEach(function(filtre) {
+
+				const valeur = filtre.element ? filtre.element.value.toLowerCase() : "tous";
+
+				if (valeur !== "tous") {
+
+					const texteCellule =
+						cellules[filtre.column].textContent.toLowerCase();
+
+					if (!texteCellule.includes(valeur)) {
+						visible = false;
+					}
+				}
+			});
 		}
-		if (matchNom && matchClient) {
-			tr.style.display = '';
-		} else {
-			tr.style.display = 'none';
-		}
+
+		tr.style.display = visible ? "" : "none";
 	});
 }
 
-if(rechercheProjet && projetsTbody) {
-	rechercheProjet.addEventListener('input', filtrerProjets);
-}
-if(boutonFiltrer && projetsTbody) {
-	boutonFiltrer.addEventListener('click', filtrerProjets);
+
+// CONFIGURATION CLIENT
+const clientBody = document.querySelector("#tickets-client-table tbody");
+
+if (clientBody) {
+
+	const clientConfig = {
+		tbody: clientBody,
+		recherche: document.querySelector("body.role-client #recherche-ticket"),
+
+		searchColumns: [0, 1],
+
+		selectFilters: [
+			{
+				element: document.querySelector("body.role-client #filtre-statut"),
+				column: 3
+			}
+		]
+	};
+
+	const btnClient = document.querySelector("body.role-client button[type='button']");
+
+	if (btnClient) {
+		btnClient.addEventListener("click", function() {
+			filtrerTable(clientConfig);
+		});
+	}
+
+	if (clientConfig.recherche) {
+		clientConfig.recherche.addEventListener("input", function() {
+			filtrerTable(clientConfig);
+		});
+	}
 }
 
-//---------------------//
+// CONFIGURATION COLLABORATEUR
+const collabBody = document.querySelector("#tickets-table tbody");
+
+if (collabBody) {
+
+	const collabConfig = {
+		tbody: collabBody,
+		recherche: document.querySelector("body:not(.role-client) #recherche-ticket"),
+
+		searchColumns: [0, 1],
+
+		selectFilters: [
+			{
+				element: document.querySelector("#filtre-statut"),
+				column: 3
+			},
+			{
+				element: document.querySelector("#filtre-projet"),
+				column: 2
+			},
+			{
+				element: document.querySelector("#filtre-type"),
+				column: 5
+			}
+		]
+	};
+
+	const btnCollab = document.querySelector("#btn-filtrer");
+
+	if (btnCollab) {
+		btnCollab.addEventListener("click", function() {
+			filtrerTable(collabConfig);
+		});
+	}
+
+	if (collabConfig.recherche) {
+		collabConfig.recherche.addEventListener("input", function() {
+			filtrerTable(collabConfig);
+		});
+	}
+}
+
 
 // Validation du formulaire de création de projet
 const projectForm = document.querySelector('#projectform');
@@ -310,127 +425,49 @@ if(projectForm) {
 		}
 	});
 }
-//---------------//
 
-// Filtrer les tickets
-const rechercheTicket = document.querySelector('#recherche-ticket');
-const ticketsTbody = document.querySelector('.tickets-table tbody');
-const filtreStatut = document.querySelector('#filtre-statut');
-const filtreProjet = document.querySelector('#filtre-projet');
-const filtreType = document.querySelector('#filtre-type');
-const boutonFiltrerTicket = document.querySelector('form button[type="button"]');
+//NOTIFICATIONS GLISSANTES
 
 
-function filtrerTickets() {
-    const filtreRecherche = rechercheTicket ? rechercheTicket.value.toLowerCase() : "";
-    const filtreStatutValue = filtreStatut ? filtreStatut.value.toLowerCase() : "tous";
-    const filtreProjetValue = filtreProjet ? filtreProjet.value.toLowerCase() : "tous";
-    const filtreTypeValue = filtreType ? filtreType.value.toLowerCase() : "tous";
-    const lignes = ticketsTbody ? ticketsTbody.querySelectorAll('tr') : [];
-    lignes.forEach(function(tr) {
-        const idTicket = tr.querySelectorAll('td')[0];
-        const titreTicket = tr.querySelectorAll('td')[1];
-        const projetTicket = tr.querySelectorAll('td')[2];
-        const statutTicket = tr.querySelectorAll('td')[3];
-        const typeTicket = tr.querySelectorAll('td')[5];
-        let matchRecherche = true;
-        let matchStatut = true;
-        let matchProjet = true;
-        let matchType = true;
-        // Recherche sur ID ou titre ou projet ou statut ou type
-        if (filtreRecherche) {
-            matchRecherche = false;
-            if (idTicket && idTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
-            if (titreTicket && titreTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
-            if (projetTicket && projetTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
-            if (statutTicket && statutTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
-            if (typeTicket && typeTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
-        }
-        // Filtres déroulants
-		if (filtreStatutValue !== "tous" && statutTicket) {
-			// Harmonisation des valeurs pour correspondre au select
-			function normalizeStatut(val) {
-				val = val.trim().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
-				if(val === "en cours") return "en-cours";
-				if(val === "a valider" || val === "à valider") return "a-valider";
-				if(val === "termine" || val === "terminé") return "termine";
-				if(val === "nouveau") return "nouveau";
-				return val;
-			}
-			const statutCell = normalizeStatut(statutTicket.textContent);
-			const statutFiltre = filtreStatutValue;
-			matchStatut = (statutCell === statutFiltre);
-		}
-        if (filtreProjetValue !== "tous" && projetTicket) {
-            matchProjet = projetTicket.textContent.toLowerCase().includes(filtreProjetValue);
-        }
-        if (filtreTypeValue !== "tous" && typeTicket) {
-            matchType = typeTicket.textContent.toLowerCase().includes(filtreTypeValue);
-        }
-        if (matchRecherche && matchStatut && matchProjet && matchType) {
-            tr.style.display = '';
-        } else {
-            tr.style.display = 'none';
-        }
-    });
-}
-
-if (rechercheTicket && ticketsTbody) {
-	rechercheTicket.addEventListener('input', filtrerTickets);
-}
-if (boutonFiltrerTicket && ticketsTbody) {
-	boutonFiltrerTicket.addEventListener('click', filtrerTickets);
-}
-
-
-// Filtrer les tickets clients 
-const rechercheTicketClient = document.querySelector('#recherche-ticket');
-const ticketsClientTbody = document.querySelector('main section:first-of-type table tbody');
-const filtreStatutClient = document.querySelector('#filtre-statut');
-const boutonFiltrerTicketClient = document.querySelector('form button[type="button"]');
-
-function filtrerTicketsClients() {
-	const filtreRecherche = rechercheTicketClient ? rechercheTicketClient.value.toLowerCase() : "";
-	const filtreStatutValue = filtreStatutClient ? filtreStatutClient.value.toLowerCase() : "tous";
-	const lignes = ticketsClientTbody ? ticketsClientTbody.querySelectorAll('tr') : [];
-	lignes.forEach(function(tr) {
-		const idTicket = tr.querySelectorAll('td')[0];
-		const titreTicket = tr.querySelectorAll('td')[1];
-		const statutTicket = tr.querySelectorAll('td')[3];
-		let matchRecherche = true;
-		let matchStatut = true;
-		// Recherche sur ID ou titre
-		if (filtreRecherche) {
-			matchRecherche = false;
-			if (idTicket && idTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
-			if (titreTicket && titreTicket.textContent.toLowerCase().includes(filtreRecherche)) matchRecherche = true;
-		}
-		// Filtre statut (harmonisation)
-		if (filtreStatutValue !== "tous" && statutTicket) {
-			function normalizeStatut(val) {
-				val = val.trim().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
-				if(val === "en cours") return "en-cours";
-				if(val === "a valider" || val === "à valider") return "a-valider";
-				if(val === "termine" || val === "terminé") return "termine";
-				if(val === "nouveau") return "nouveau";
-				return val;
-			}
-			const statutCell = normalizeStatut(statutTicket.textContent);
-			const statutFiltre = filtreStatutValue;
-			matchStatut = (statutCell === statutFiltre);
-		}
-		if (matchRecherche && matchStatut) {
-			tr.style.display = '';
-		} else {
-			tr.style.display = 'none';
-		}
+// Notifications validation/refus ticket client
+const notifTicketClient = document.getElementById('notif-ticket-client');
+const btnsAccepter = document.querySelectorAll('.btn-accepter');
+const btnsRefuser = document.querySelectorAll('.btn-refuser');
+if (notifTicketClient && (btnsAccepter.length > 0 || btnsRefuser.length > 0)) {
+	btnsAccepter.forEach(btn => {
+		btn.addEventListener('click', function() {
+			notifTicketClient.textContent = 'Le ticket a été accepté.';
+			notifTicketClient.style.display = 'block';
+			setTimeout(() => { notifTicketClient.style.display = 'none'; }, 2500);
+		});
+	});
+	btnsRefuser.forEach(btn => {
+		btn.addEventListener('click', function() {
+			notifTicketClient.textContent = 'Le ticket a été refusé.';
+			notifTicketClient.style.display = 'block';
+			setTimeout(() => { notifTicketClient.style.display = 'none'; }, 2500);
+		});
 	});
 }
 
-if (rechercheTicketClient && ticketsClientTbody) {
-	rechercheTicketClient.addEventListener('input', filtrerTicketsClients);
-}
-if (boutonFiltrerTicketClient && ticketsClientTbody) {
-	boutonFiltrerTicketClient.addEventListener('click', filtrerTicketsClients);
-}
+// Notifications suppression utilisateur
+const notifUser = document.createElement('div');
+notifUser.classList.add('notif');
+document.body.appendChild(notifUser);
+
+// Boutons Supprimer dans le tableau utilisateurs
+const btnSupprimer = document.querySelectorAll('tbody tr button');
+
+btnSupprimer.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const row = btn.closest('tr'); // la ligne du tableau
+        const userName = row.querySelector('td').textContent; // nom de l'utilisateur
+        row.remove(); // supprime la ligne du tableau
+
+        // Affiche notification
+        notifUser.textContent = `L'utilisateur ${userName} a bien été supprimé.`;
+        notifUser.style.display = 'block';
+        setTimeout(() => { notifUser.style.display = 'none'; }, 2500);
+    });
+});
 
