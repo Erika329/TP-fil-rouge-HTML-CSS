@@ -60,5 +60,5 @@ Il est possible de lire le nombre d'erreurs dans le formulaire en ouvrant la con
 - [Projets admin](src/pages/projects-admin.html)
 - [Tickets admin](src/pages/tickets-admin.html)
 
-La partie intégrant le PHP se trouve dans ce repo GIT : 
+La partie intégrant le PHP se trouve dans ce repo GIT : https://github.com/Erika329/TP-Fil-rouge-Backend.git
 
