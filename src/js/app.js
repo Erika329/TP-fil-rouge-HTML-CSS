@@ -334,7 +334,7 @@ function filtrerTable(config) {
 			if (!match) visible = false;
 		}
 
-		// Filtres select
+		/*// Filtres select
 		if (config.selectFilters) {
 
 			config.selectFilters.forEach(function(filtre) {
@@ -351,7 +351,21 @@ function filtrerTable(config) {
 					}
 				}
 			});
-		}
+		}*/
+		// Filtres select
+if (config.selectFilters) {
+
+    config.selectFilters.forEach(function(filtre) {
+
+        const valeurFiltre = filtre.element ? filtre.element.value.trim().toLowerCase() : "tous";
+        const texteCellule = cellules[filtre.column].textContent.trim().toLowerCase();
+
+        if (valeurFiltre !== "tous" && texteCellule !== valeurFiltre) {
+            visible = false;
+        }
+    });
+}
+
 
 		tr.style.display = visible ? "" : "none";
 	});
@@ -544,13 +558,14 @@ if (notifTicketClient && (btnsAccepter.length > 0 || btnsRefuser.length > 0)) {
 	});
 }
 
+
 // Notifications suppression utilisateur
 const notifUser = document.createElement('div');
 notifUser.classList.add('notif');
 document.body.appendChild(notifUser);
 
 // Boutons Supprimer dans le tableau utilisateurs
-const btnSupprimer = document.querySelectorAll('tbody tr button');
+const btnSupprimer = document.querySelectorAll('tbody tr button.btn-supprimer');
 
 btnSupprimer.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -562,6 +577,27 @@ btnSupprimer.forEach(btn => {
         notifUser.textContent = `L'utilisateur ${userName} a bien été supprimé.`;
         notifUser.style.display = 'block';
         setTimeout(() => { notifUser.style.display = 'none'; }, 2500);
+    });
+});
+
+// Notifications suppression projet
+const notifProjets = document.createElement('div');
+notifProjets.classList.add('notif');
+document.body.appendChild(notifProjets);
+
+// Boutons Supprimer dans le tableau projets
+const btnSupprimerprojet = document.querySelectorAll('tbody tr button.btn-supprimer-projets');
+
+btnSupprimerprojet.forEach(btn => {
+    btn.addEventListener('click', function() {
+        const row_proj = btn.closest('tr'); // la ligne du tableau
+        const projName = row_proj.querySelector('td').textContent; // nom du projet
+        row_proj.remove(); // supprime la ligne du tableau
+
+        // Affiche notification
+        notifProjets.textContent = `Le projet ${projName} a bien été supprimé.`;
+        notifProjets.style.display = 'block';
+        setTimeout(() => { notifProjets.style.display = 'none'; }, 2500);
     });
 });
 
