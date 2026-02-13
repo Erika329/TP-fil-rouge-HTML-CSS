@@ -334,37 +334,19 @@ function filtrerTable(config) {
 			if (!match) visible = false;
 		}
 
-		/*// Filtres select
-		if (config.selectFilters) {
-
-			config.selectFilters.forEach(function(filtre) {
-
-				const valeur = filtre.element ? filtre.element.value.toLowerCase() : "tous";
-
-				if (valeur !== "tous") {
-
-					const texteCellule =
-						cellules[filtre.column].textContent.toLowerCase();
-
-					if (!texteCellule.includes(valeur)) {
-						visible = false;
-					}
-				}
-			});
-		}*/
-		// Filtres select
+	
 if (config.selectFilters) {
-
     config.selectFilters.forEach(function(filtre) {
-
         const valeurFiltre = filtre.element ? filtre.element.value.trim().toLowerCase() : "tous";
         const texteCellule = cellules[filtre.column].textContent.trim().toLowerCase();
 
-        if (valeurFiltre !== "tous" && texteCellule !== valeurFiltre) {
+        // On compare en utilisant includes pour matcher partiellement et ignorer casse
+        if (valeurFiltre !== "tous" && !texteCellule.includes(valeurFiltre)) {
             visible = false;
         }
     });
 }
+
 
 
 		tr.style.display = visible ? "" : "none";
@@ -446,6 +428,34 @@ if (collabBody) {
 			filtrerTable(collabConfig);
 		});
 	}
+}
+
+//FILTRE DES PROJETS
+
+const projectsBody = document.querySelector("#projects-table tbody");
+const btnFiltrer = document.querySelector("#btn-filtrer");
+const rechercheProjet = document.querySelector("#recherche-projet");
+
+if (projectsBody && btnFiltrer) {
+    const projectsConfig = {
+        tbody: projectsBody,
+        recherche: rechercheProjet,
+        searchColumns: [0], // on cherche dans la colonne projet
+        selectFilters: [
+            { element: document.querySelector("#filtre-statut"), column: 1 }, // Client
+            { element: document.querySelector("#filtre-projet"), column: 4 }  // Statut
+        ]
+    };
+
+    btnFiltrer.addEventListener("click", function() {
+        filtrerTable(projectsConfig);
+    });
+
+    if (projectsConfig.recherche) {
+        projectsConfig.recherche.addEventListener("input", function() {
+            filtrerTable(projectsConfig);
+        });
+    }
 }
 
 
